@@ -1,6 +1,18 @@
 { pkgs, lib, ... }:
 
 {
+  imports = [
+    ./starship.nix
+  ];
+
+  # --- Nushell ---
+  programs.nushell = {
+    enable = true;
+    settings = {
+      show_banner = false;
+    };
+  };
+
   # --- Shell Aliases ---
   home.shellAliases = {
     cat = "bat";
@@ -11,6 +23,9 @@
     update = "just --justfile ~/.dotfiles/justfile update";
     clear = "printf '\\033[2J\\033[3J\\033[1;1H'";
     q = "qs -c ii";
+
+    # Hermes Agent
+    hermes = "just --justfile ~/.hermes/justfile";
   };
 
   programs.eza = {
@@ -19,22 +34,20 @@
     enableFishIntegration = true;
     icons = "auto";
   };
+
   programs.zoxide = {
     enable = true;
     enableNushellIntegration = true;
     enableFishIntegration = true;
   };
+
   programs.bat = {
     enable = true;
     config = {
       theme = "TwoDark";
     };
   };
-  programs.starship = {
-    enable = true;
-    enableFishIntegration = true;
-    enableNushellIntegration = true;
-  };
+
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
@@ -44,14 +57,5 @@
     enable = true;
     enableNushellIntegration = true;
     enableFishIntegration = true;
-  };
-
-  # --- Nushell ---
-  programs.nushell = {
-    enable = true;
-    settings = {
-      show_banner = false;
-    };
-    # .nu scripts here
   };
 }

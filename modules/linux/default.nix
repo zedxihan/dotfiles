@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   # Linux packages
@@ -13,12 +13,4 @@
     '';
   };
 
-  # Backup existing Fish config
-  home.activation.backupFish = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-    if [ -f "$HOME/.config/fish/config.fish" ] && [ ! -L "$HOME/.config/fish/config.fish" ]; then
-      echo "Nix: Backing up existing Fish configuration to ~/.config/fish/config.fish.bak"
-      rm -f "$HOME/.config/fish/config.fish.bak"
-      mv "$HOME/.config/fish/config.fish" "$HOME/.config/fish/config.fish.bak"
-    fi
-  '';
 }

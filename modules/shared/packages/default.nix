@@ -15,8 +15,5 @@
     mpv
     xdg-utils
     comma
-    nix-tree
-    nix-update
-    just
   ];
 }

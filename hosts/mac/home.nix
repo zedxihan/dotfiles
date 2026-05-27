@@ -12,10 +12,11 @@
 
   # --- Modules ---
   imports = [
-    ../../modules/shared/packages.nix
-    ../../modules/shared/shell.nix
-    ../../modules/shared/kitty.nix
-    ../../modules/shared/dev.nix
+    ../../modules/shared/packages
+    ../../modules/shared/shell
+    ../../modules/shared/kitty
+    ../../modules/shared/dev
+    ../../modules/shared/backup.nix
     ../../modules/darwin
   ];
 

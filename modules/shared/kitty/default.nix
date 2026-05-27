@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   programs.kitty = {
@@ -47,14 +47,4 @@
         "";
   };
 
-  home.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
-
-  # Backup existing
-  home.activation.backupKitty = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-    if [ -e "$HOME/.config/kitty" ] && [ ! -L "$HOME/.config/kitty" ]; then
-      echo "Nix: Backing up existing Kitty configuration to ~/.config/kitty.bak"
-      rm -rf "$HOME/.config/kitty.bak"
-      mv "$HOME/.config/kitty" "$HOME/.config/kitty.bak"
-    fi
-  '';
 }
