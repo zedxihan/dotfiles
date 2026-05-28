@@ -13,46 +13,52 @@ in
 
   programs.zen-browser = {
     enable = true;
-    profiles.default = {
-      id = 0;
-      settings = import ./settings.nix;
-      search = {
-        force = true;
-        default = "kagi";
-        engines =
-          let
-            createEngine = name: alias: url: params: {
-              inherit name;
-              definedAliases = [ alias ];
-              urls = toList {
-                template = url;
-                params = attrsToList params;
+    profiles.default =
+      let
+        profileAssets = import ./settings.nix;
+      in
+      {
+        id = 0;
+        inherit (profileAssets) settings userChrome;
+        search = {
+          force = true;
+          default = "kagi";
+          engines =
+            let
+              createEngine = name: alias: url: params: {
+                inherit name;
+                definedAliases = [ alias ];
+                urls = toList {
+                  template = url;
+                  params = attrsToList params;
+                };
+              };
+            in
+            {
+              kagi = createEngine "Kagi Search" "@kagi" "https://kagi.com/search" { q = "{searchTerms}"; };
+              "google".metaData.alias = "@g";
+              "wikipedia".metaData.alias = "@wiki";
+              youtube = createEngine "YouTube" "@yt" "https://youtube.com/results" {
+                search_query = "{searchTerms}";
+              };
+              github = createEngine "GitHub" "@gh" "https://github.com/search" {
+                type = "repositories";
+                q = "{searchTerms}";
+              };
+              nyaa = createEngine "Nyaa" "@ny" "https://nyaa.si/" {
+                f = "0";
+                c = "0_0";
+                q = "{searchTerms}";
+              };
+              anime = createEngine "Anilist Anime" "@anime" "https://anilist.co/search/anime" {
+                search = "{searchTerms}";
+              };
+              manga = createEngine "Anilist Manga" "@manga" "https://anilist.co/search/manga" {
+                search = "{searchTerms}";
               };
             };
-          in
-          {
-            kagi = createEngine "Kagi Search" "@kagi" "https://kagi.com/search" { q = "{searchTerms}"; };
-            youtube = createEngine "YouTube" "@yt" "https://youtube.com/results" {
-              search_query = "{searchTerms}";
-            };
-            github = createEngine "GitHub" "@gh" "https://github.com/search" {
-              type = "repositories";
-              q = "{searchTerms}";
-            };
-            nyaa = createEngine "Nyaa" "@ny" "https://nyaa.si/" {
-              f = "0";
-              c = "0_0";
-              q = "{searchTerms}";
-            };
-            anime = createEngine "Anilist Anime" "@anime" "https://anilist.co/search/anime" {
-              search = "{searchTerms}";
-            };
-            manga = createEngine "Anilist Manga" "@manga" "https://anilist.co/search/manga" {
-              search = "{searchTerms}";
-            };
-          };
+        };
       };
-    };
 
     policies = {
       AppAutoUpdate = false;

@@ -1,6 +1,9 @@
 { pkgs, ... }:
 
 {
+  imports = [
+  ];
+
   # Linux packages
   home.packages = with pkgs; [
   ];
