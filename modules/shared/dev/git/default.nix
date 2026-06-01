@@ -69,13 +69,20 @@ in
 
         branch = {
           current = "magenta";
+          local = "default";
+          remote = "yellow";
           upstream = "green";
         };
-
         diff = {
           meta = "black bold";
           frag = "magenta";
           old = "red";
+        };
+        decorate = {
+          HEAD = "red";
+          branch = "blue";
+          tag = "yellow";
+          remoteBranch = "magenta";
         };
       };
 
