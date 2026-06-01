@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   programs.kitty = {
@@ -38,13 +38,9 @@
     };
 
     # Load Quickshell theme on illogical-impulse
-    extraConfig =
-      if pkgs.stdenv.isLinux then
-        ''
-          include ~/.local/state/quickshell/user/generated/terminal/kitty-theme.conf
-        ''
-      else
-        "";
+    extraConfig = lib.optionalString pkgs.stdenv.isLinux ''
+      include ~/.local/state/quickshell/user/generated/terminal/kitty-theme.conf
+    '';
   };
 
 }

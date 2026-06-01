@@ -1,9 +1,18 @@
-{ pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
     ./starship.nix
   ];
+
+  # Symlink dotfiles repo
+  home.file.".dotfiles".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/git/dotfiles";
 
   # --- Nushell ---
   programs.nushell = {
