@@ -10,7 +10,7 @@ update:
     --
     else
         echo "Updating Linux Home Manager configuration..."
-        home-manager switch --flake ~/.dotfiles/#arch-setup
+        home-manager switch --flake ~/.dotfiles/#arch-setup --impure
     fi
 
 # Garbage collection

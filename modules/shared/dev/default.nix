@@ -10,6 +10,7 @@ in
 {
   imports = [
     ./git
+    ./zed
   ];
 
   # --- Direnv ---
@@ -27,11 +28,12 @@ in
     bun
     gh
     lazygit
-    neovim
     vscodium
     uv
     just
     nix-tree
+    nixd
+    nixfmt
     curl
     gcc
     gnumake
