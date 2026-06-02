@@ -9,7 +9,7 @@ let
 
   zed-pkg =
     if pkgs.stdenv.isLinux && nixGL != null then
-      import ./wrapped.nix { inherit pkgs nixGL; }
+      import ./wrapper.nix { inherit pkgs nixGL; }
     else
       pkgs.zed-editor;
 in

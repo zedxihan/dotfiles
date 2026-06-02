@@ -12,7 +12,6 @@
     aria2
     wget
     yt-dlp
-    mpv
     xdg-utils
     comma
   ];
