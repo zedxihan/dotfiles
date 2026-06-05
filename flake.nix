@@ -57,7 +57,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.${macUsername} = import ./hosts/mac/home.nix;
-            home-manager.extraSpecialArgs = { inherit macUsername; };
+            home-manager.extraSpecialArgs = { inherit macUsername inputs; };
           }
         ];
       };

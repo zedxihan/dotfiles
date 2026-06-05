@@ -23,9 +23,11 @@ in
     extensions = [
       "nix"
       "lua"
+      "nu"
+      "bash"
+      "make"
       "yaml"
       "json"
-      "bash"
       "html"
       "css"
       "catppuccin"
@@ -56,6 +58,15 @@ in
       agent_servers = {
         gemini = {
           type = "registry";
+        };
+      };
+      context_servers = {
+        mcp_server_context7 = {
+          enable = true;
+          remote = false;
+          settings = {
+            context7_api_key = "API_KEY";
+          };
         };
       };
       edit_predictions = {

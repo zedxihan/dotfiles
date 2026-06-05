@@ -1,7 +1,5 @@
 {
   config,
-  pkgs,
-  lib,
   ...
 }:
 
@@ -48,6 +46,9 @@
     enable = true;
     enableNushellIntegration = true;
     enableFishIntegration = true;
+    options = [
+      "--cmd cd"
+    ];
   };
 
   programs.bat = {
