@@ -15,7 +15,7 @@
     -- App shortcuts
     hl.bind("F1", hl.dsp.exec_cmd("kitty"))
     hl.bind("F2", hl.dsp.exec_cmd("zen-beta"))
-    hl.bind("F3", hl.dsp.exec_cmd("discord"))
+    hl.bind("F3", hl.dsp.exec_cmd("equibop"))
     hl.bind("F4", hl.dsp.exec_cmd("spotify"))
     hl.bind("F5", hl.dsp.exec_cmd("zeditor"))
   '';

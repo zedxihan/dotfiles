@@ -1,24 +1,30 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  # Filter only enabled files
   enabledFiles = lib.filterAttrs (_: v: v.enable) config.home.file;
+  paths = lib.mapAttrsToList (name: v: v.target or name) enabledFiles;
 
-  # Get target paths relative to $HOME
-  paths = lib.mapAttrsToList (_: v: v.target) enabledFiles;
+  backupCustomFiles = pkgs.writers.writeNu "backup-custom-files" ''
+    for target in ('${builtins.toJSON paths}' | from json) {
+      let file = ($env.HOME | path join $target)
+      let type = (try { $file | path type } catch { null })
+      let nix_link = $type == "symlink" and ((try { $file | path expand -s } catch { "" }) | str contains "/nix/store")
 
-  backupScript = path: ''
-    if [ -e "$HOME/${path}" ] || [ -L "$HOME/${path}" ]; then
-      if [ ! -L "$HOME/${path}" 2>/dev/null ] || [[ ! "$(readlink "$HOME/${path}")" =~ /nix/store ]]; then
-        echo "Nix: Backing up existing manual file/link ~/${path} to ~/${path}.bak"
-        rm -rf "$HOME/${path}.bak"
-        mv "$HOME/${path}" "$HOME/${path}.bak"
-      fi
-    fi
+      if ($type != null and (not $nix_link)) {
+        print $"Nix: Backing up existing manual file/link ~/($target) to ~/($target).bak"
+        rm -rf $"($file).bak"
+        mv $file $"($file).bak"
+      }
+    }
   '';
 in
 {
   home.activation.backupCustomFiles = lib.hm.dag.entryBefore [ "checkLinkTargets" ] (
-    lib.concatStringsSep "\n" (map backupScript paths)
+    "${backupCustomFiles}"
   );
 }

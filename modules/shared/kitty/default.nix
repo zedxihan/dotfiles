@@ -1,12 +1,9 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   programs.kitty = {
     enable = true;
-    package = null;
-
-    # Static theme on Mac
-    themeFile = if pkgs.stdenv.isDarwin then "Tokyo_Night" else null;
+    package = if pkgs.stdenv.isDarwin then pkgs.kitty else null;
 
     font = {
       name = "JetBrains Mono Nerd Font";
@@ -19,28 +16,25 @@
       window_margin_width = "21.75";
       confirm_os_window_close = "0";
       shell = "${pkgs.nushell}/bin/nu";
+
+      macos_option_as_alt = "both";
     };
 
     keybindings = {
       "ctrl+c" = "copy_or_interrupt";
+      "ctrl+v" = "paste_from_clipboard";
       "page_up" = "scroll_page_up";
       "page_down" = "scroll_page_down";
 
       "ctrl+plus" = "change_font_size all +1";
-      "ctrl+equal" = "change_font_size all +1";
-
       "ctrl+minus" = "change_font_size all -1";
-      "ctrl+underscore" = "change_font_size all -1";
-
       "ctrl+0" = "change_font_size all 0";
 
       "ctrl+f" = "show_scrollback";
     };
 
-    # Load Quickshell theme on illogical-impulse
-    extraConfig = lib.optionalString pkgs.stdenv.isLinux ''
-      include ~/.local/state/quickshell/user/generated/terminal/kitty-theme.conf
+    extraConfig = ''
+      include ~/.config/kitty/matugen-theme.conf
     '';
   };
-
 }

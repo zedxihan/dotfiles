@@ -21,11 +21,15 @@ in
 
   # --- SSH Key Generation ---
   home.activation.createSshKey = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
-      echo "Nix: Auto-generating SSH key..."
-      mkdir -p "$HOME/.ssh"
-      ${pkgs.openssh}/bin/ssh-keygen -t ed25519 -N "" -f "$HOME/.ssh/id_ed25519" -C "dev@gaffarmahmud.com"
-    fi
+    ${pkgs.writers.writeNu "create-ssh-key" ''
+      let key = ($env.HOME | path join ".ssh/id_ed25519")
+
+      if not ($key | path exists) {
+        print "Nix: Auto-generating SSH key..."
+        mkdir ($env.HOME | path join ".ssh")
+        ^${pkgs.openssh}/bin/ssh-keygen -t ed25519 -N "" -f $key -C "dev@gaffarmahmud.com"
+      }
+    ''}
   '';
 
   # --- SSH Client ---

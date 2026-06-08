@@ -3,15 +3,14 @@ default:
 
 # Update system configuration based on current OS
 update:
-    #!/usr/bin/env bash
-    if [ "$(uname)" = "Darwin" ]; then
-        echo "Updating macOS Darwin configuration..."
+    #!/usr/bin/env nu
+    if $nu.os-info.name == "macos" {
+        print "Updating macOS Darwin configuration..."
         darwin-rebuild switch --flake ~/.dotfiles/#mac-setup
-    --
-    else
-        echo "Updating Linux Home Manager configuration..."
+    } else {
+        print "Updating Linux Home Manager configuration..."
         home-manager switch --flake ~/.dotfiles/#arch-setup --impure
-    fi
+    }
 
 # Garbage collection
 clean:

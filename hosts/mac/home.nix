@@ -10,11 +10,14 @@
 
   # --- Modules ---
   imports = [
+    ../../modules/shared/backup.nix
+    ../../modules/shared/dev
+    ../../modules/shared/discord
+    ../../modules/shared/kitty
     ../../modules/shared/packages
     ../../modules/shared/shell
-    ../../modules/shared/kitty
-    ../../modules/shared/dev
-    ../../modules/shared/backup.nix
+    ../../modules/shared/theme
+    ../../modules/shared/zen-browser
     ../../modules/darwin
   ];
 

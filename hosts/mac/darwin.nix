@@ -28,6 +28,14 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
   users.users.${macUsername}.home = "/Users/${macUsername}";
 
+  # --- Homebrew ---
+  homebrew = {
+    enable = true;
+    casks = [
+      "equibop"
+    ];
+  };
+
   # --- Shells ---
   programs.zsh.enable = true;
 }
