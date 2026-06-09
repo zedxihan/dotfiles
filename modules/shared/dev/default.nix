@@ -13,7 +13,6 @@ in
     ./zed
   ];
 
-  # --- Direnv ---
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -23,23 +22,17 @@ in
     enableNushellIntegration = true;
   };
 
-  # --- Dev Tools ---
   home.packages = with pkgs; [
     bun
+    gcc
     gh
-    lazygit
-    vscodium
-    uv
+    gnumake
     just
-    nix-tree
+    lazygit
     nixd
     nixfmt
-    curl
-    gcc
-    gnumake
-    sd
-    unzip
-    xh
     runix
+    uv
+    vscodium
   ];
 }

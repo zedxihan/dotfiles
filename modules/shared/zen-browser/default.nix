@@ -5,58 +5,58 @@
 }:
 let
   inherit (lib) attrsToList toList;
+
+  profileAssets = import ./settings.nix;
+
+  createEngine = name: alias: url: params: {
+    inherit name;
+    definedAliases = [ alias ];
+    urls = toList {
+      template = url;
+      params = attrsToList params;
+    };
+  };
 in
 {
   imports = [ inputs.zen-browser.homeModules.beta ];
 
   programs.zen-browser = {
     enable = true;
-    profiles.default =
-      let
-        profileAssets = import ./settings.nix;
-      in
-      {
-        id = 0;
-        inherit (profileAssets) settings userChrome;
-        search = {
-          force = true;
-          default = "kagi";
-          engines =
-            let
-              createEngine = name: alias: url: params: {
-                inherit name;
-                definedAliases = [ alias ];
-                urls = toList {
-                  template = url;
-                  params = attrsToList params;
-                };
-              };
-            in
-            {
-              kagi = createEngine "Kagi Search" "@kagi" "https://kagi.com/search" { q = "{searchTerms}"; };
-              "google".metaData.alias = "@g";
-              "wikipedia".metaData.alias = "@wiki";
-              youtube = createEngine "YouTube" "@yt" "https://youtube.com/results" {
-                search_query = "{searchTerms}";
-              };
-              github = createEngine "GitHub" "@gh" "https://github.com/search" {
-                type = "repositories";
-                q = "{searchTerms}";
-              };
-              nyaa = createEngine "Nyaa" "@ny" "https://nyaa.si/" {
-                f = "0";
-                c = "0_0";
-                q = "{searchTerms}";
-              };
-              anime = createEngine "Anilist Anime" "@anime" "https://anilist.co/search/anime" {
-                search = "{searchTerms}";
-              };
-              manga = createEngine "Anilist Manga" "@manga" "https://anilist.co/search/manga" {
-                search = "{searchTerms}";
-              };
-            };
+    profiles.default = {
+      id = 0;
+      inherit (profileAssets) settings userChrome;
+
+      search = {
+        force = true;
+        default = "kagi";
+        engines = {
+          kagi = createEngine "Kagi Search" "@kagi" "https://kagi.com/search" { q = "{searchTerms}"; };
+          "google".metaData.alias = "@g";
+          "wikipedia".metaData.alias = "@wiki";
+          youtube = createEngine "YouTube" "@yt" "https://youtube.com/results" {
+            search_query = "{searchTerms}";
+          };
+          github = createEngine "GitHub" "@gh" "https://github.com/search" {
+            type = "repositories";
+            q = "{searchTerms}";
+          };
+          nixwiki = createEngine "NixOS Wiki" "@nw" "https://wiki.nixos.org/w/index.php" {
+            search = "{searchTerms}";
+          };
+          nyaa = createEngine "Nyaa" "@ny" "https://nyaa.si/" {
+            f = "0";
+            c = "0_0";
+            q = "{searchTerms}";
+          };
+          anime = createEngine "Anilist Anime" "@anime" "https://anilist.co/search/anime" {
+            search = "{searchTerms}";
+          };
+          manga = createEngine "Anilist Manga" "@manga" "https://anilist.co/search/manga" {
+            search = "{searchTerms}";
+          };
         };
       };
+    };
 
     policies = {
       AppAutoUpdate = false;

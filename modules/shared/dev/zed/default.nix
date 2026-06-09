@@ -1,17 +1,11 @@
 {
   pkgs,
-  inputs ? { },
+  wrapGPU,
   ...
 }:
 
 let
-  nixGL = if inputs ? nixgl then inputs.nixgl.packages.${pkgs.system}.nixGLDefault else null;
-
-  zed-pkg =
-    if pkgs.stdenv.isLinux && nixGL != null then
-      import ./wrapper.nix { inherit pkgs nixGL; }
-    else
-      pkgs.zed-editor;
+  zed-pkg = wrapGPU pkgs.zed-editor { };
 in
 {
   programs.zed-editor = {

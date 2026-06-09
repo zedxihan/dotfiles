@@ -27,12 +27,8 @@
     ls = "eza --icons";
     ll = "eza -l --icons";
     la = "eza -la --icons";
-    update = "just --justfile ~/.dotfiles/justfile update";
     clear = "printf '\\033[2J\\033[3J\\033[1;1H'";
     q = "qs -c ii";
-
-    # Hermes Agent
-    hermes = "just --justfile ~/.hermes/justfile";
   };
 
   programs.eza = {

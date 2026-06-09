@@ -1,18 +1,21 @@
 { pkgs, ... }:
 
 {
-  # --- Universal CLI Utils ---
   home.packages = with pkgs; [
-    ripgrep
-    fd
-    btop
-    jq
-    tldr
-    fastfetch
     aria2
+    btop
+    curl
+    fastfetch
+    fd
+    jq
+    nix-tree
+    ripgrep
+    sd
+    tldr
+    unzip
     wget
-    yt-dlp
     xdg-utils
-    comma
+    xh
+    yt-dlp
   ];
 }
