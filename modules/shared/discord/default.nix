@@ -1,12 +1,24 @@
 {
   pkgs,
   lib,
+  config,
   wrapGPU,
   ...
 }:
 
 let
   isLinux = pkgs.stdenv.isLinux;
+
+  baseSettings = {
+    discordBranch = "stable";
+    minimizeToTray = false;
+    tray = true;
+    hardwareAcceleration = true;
+    arRPC = true;
+    splashTheming = true;
+    autoUpdate = false;
+  };
+
   equibop-wrapped = wrapGPU pkgs.equibop {
     SPEECHD_ADDRESS = "none";
     NIXOS_SPEECH = "False";
@@ -16,16 +28,6 @@ in
   home.packages = lib.mkIf isLinux [
     equibop-wrapped
   ];
-
-  # # Core behavior
-  # xdg.configFile."equibop/settings.json".text = builtins.toJSON {
-  #   discordBranch = "stable";
-  #   minimizeToTray = false;
-  #   tray = true;
-  #   hardwareAcceleration = true;
-  #   arRPC = true;
-  #   splashTheming = true;
-  # };
 
   # Plugin settings
   xdg.configFile."equibop/settings/settings.json".text = builtins.toJSON {
@@ -55,4 +57,14 @@ in
       WebContextMenus.enabled = true;
     };
   };
+
+  # Merge into writable config
+  home.activation.setupEquibop = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    ${pkgs.nushell}/bin/nu -c '
+      let f = "${config.xdg.configHome}/equibop/settings.json"
+      let nix = ${builtins.toJSON baseSettings}
+      mkdir ($f | path dirname)
+      if ($f | path exists) { open $f | merge $nix } else { $nix } | save -f $f
+    '
+  '';
 }
