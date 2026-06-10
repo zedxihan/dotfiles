@@ -6,25 +6,27 @@
 }:
 
 let
-  enabledFiles = lib.filterAttrs (_: v: v.enable) config.home.file;
-  paths = lib.mapAttrsToList (name: v: v.target or name) enabledFiles;
+  managed = lib.mapAttrsToList (n: v: {
+    target = "${config.home.homeDirectory}/${v.target or n}";
+    source = toString v.source;
+  }) (lib.filterAttrs (_: v: v.enable) config.home.file);
 
-  backupCustomFiles = pkgs.writers.writeNu "backup-custom-files" ''
-    for target in ('${builtins.toJSON paths}' | from json) {
-      let file = ($env.HOME | path join $target)
-      let type = (try { $file | path type } catch { null })
-      let nix_link = $type == "symlink" and ((try { $file | path expand -s } catch { "" }) | str contains "/nix/store")
-
-      if ($type != null and (not $nix_link)) {
-        print $"Nix: Backing up existing manual file/link ~/($target) to ~/($target).bak"
-        rm -rf $"($file).bak"
-        mv $file $"($file).bak"
+  backupScript = pkgs.writers.writeNu "backup-custom-files" ''
+    '${builtins.toJSON managed}'
+    | from json
+    | where { $in.target | path exists }
+    | where {|row|
+        let phys = ($row.target | path expand)
+        (not ($phys | str contains "/nix/store")) and (not ($phys | str contains "/git/dotfiles"))
       }
-    }
+    | each {
+        print $"Nix: Backing up manual drift -> ($in.target).bak"
+        rm -rf $"($in.target).bak"
+        mv $in.target $"($in.target).bak"
+      }
+    | ignore
   '';
 in
 {
-  home.activation.backupCustomFiles = lib.hm.dag.entryBefore [ "checkLinkTargets" ] (
-    "${backupCustomFiles}"
-  );
+  home.activation.backupCustomFiles = lib.hm.dag.entryBefore [ "checkLinkTargets" ] "${backupScript}";
 }

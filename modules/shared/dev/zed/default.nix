@@ -18,12 +18,7 @@ in
       "nix"
       "lua"
       "nu"
-      "bash"
       "make"
-      "yaml"
-      "json"
-      "html"
-      "css"
       "catppuccin"
       "catppuccin-icons"
       "macos-classic"
@@ -56,7 +51,7 @@ in
       };
       context_servers = {
         mcp_server_context7 = {
-          enable = true;
+          enabled = true;
           remote = false;
           settings = {
             context7_api_key = "API_KEY";
@@ -110,7 +105,6 @@ in
       # --- LSP ---
       load_direnv = "shell_hook";
       base_keymap = "VSCode";
-
       languages = {
         Nix = {
           language_servers = [
