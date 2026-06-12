@@ -16,7 +16,7 @@ let
     hardwareAcceleration = true;
     arRPC = true;
     splashTheming = true;
-    autoUpdate = false;
+    autoUpdate = true;
   };
 
   equibop-wrapped = wrapGPU pkgs.equibop {

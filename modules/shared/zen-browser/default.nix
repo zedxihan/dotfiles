@@ -1,6 +1,8 @@
 {
+  pkgs,
   lib,
   inputs,
+  wrapGPU,
   ...
 }:
 let
@@ -22,6 +24,8 @@ in
 
   programs.zen-browser = {
     enable = true;
+    package = wrapGPU inputs.zen-browser.packages.${pkgs.system}.default { };
+
     profiles.default = {
       id = 0;
       inherit (profileAssets) settings userChrome;
