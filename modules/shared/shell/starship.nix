@@ -1,11 +1,11 @@
 { ... }:
 
 {
-  # --- Starship ---
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
     enableNushellIntegration = true;
+    enableZshIntegration = true;
     settings = {
       add_newline = false;
       format = "$cmd_duration $directory$git_branch\n  $character";
@@ -50,7 +50,7 @@
         untracked = " 🤷 ‍";
         stashed = " 📦 ";
         modified = " 📝 ";
-        staged = "[++\\($count\\)](green)";
+        staged = "[++(\${count})](green)";
         renamed = " ✍️ ";
         deleted = " 🗑 ";
       };
@@ -111,5 +111,4 @@
       };
     };
   };
-
 }

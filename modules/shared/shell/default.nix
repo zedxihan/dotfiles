@@ -10,7 +10,7 @@
 
   # Symlink dotfiles repo
   home.file.".dotfiles".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/git/dotfiles";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/GitHub/dotfiles";
 
   # --- Nushell ---
   programs.nushell = {
@@ -29,6 +29,7 @@
     la = "eza -la --icons";
     clear = "printf '\\033[2J\\033[3J\\033[1;1H'";
     q = "qs -c ii";
+    dots = "just -f ~/GitHub/dotfiles/justfile";
   };
 
   programs.eza = {

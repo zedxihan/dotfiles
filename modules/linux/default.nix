@@ -10,7 +10,7 @@
 
   # --- Hyprland Custom Configs ---
   xdg.configFile."hypr/custom/keybinds.lua".text = ''
-    hl.bind("CTRL+SUPER+ALT+Slash", hl.dsp.exec_cmd("zeditor ~/git/dotfiles/modules/linux/default.nix"), {description = "Edit user keybinds"} )
+    hl.bind("CTRL+SUPER+ALT+Slash", hl.dsp.exec_cmd("zeditor ~/GitHub/dotfiles/modules/linux/default.nix"), {description = "Edit user keybinds"} )
 
     -- App shortcuts
     hl.bind("F1", hl.dsp.exec_cmd("kitty"))

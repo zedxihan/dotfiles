@@ -41,7 +41,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	targetDir := filepath.Join(homeDir, "git", cloneDir)
+	targetDir := filepath.Join(homeDir, "GitHub", cloneDir)
 
 	args := []string{"clone", cloneURI, targetDir}
 	args = append(args, extraArgs...)

@@ -17,7 +17,7 @@ let
     | where { $in.target | path exists }
     | where {|row|
         let phys = ($row.target | path expand)
-        (not ($phys | str contains "/nix/store")) and (not ($phys | str contains "/git/dotfiles"))
+        (not ($phys | str contains "/nix/store")) and (not ($phys | str contains "/GitHub/dotfiles"))
       }
     | each {
         print $"Nix: Backing up manual drift -> ($in.target).bak"
