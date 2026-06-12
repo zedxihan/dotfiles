@@ -5,7 +5,7 @@
 }:
 
 let
-  zed-pkg = wrapGPU pkgs.zed-editor { };
+  zed-pkg = wrapGPU { pkg = pkgs.zed-editor; };
 in
 {
   programs.zed-editor = {

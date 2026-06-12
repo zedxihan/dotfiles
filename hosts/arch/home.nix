@@ -13,11 +13,11 @@
     ../../modules/shared/backup.nix
     ../../modules/shared/dev
     ../../modules/shared/discord
-    ../../modules/shared/gpu-wrapper.nix
     ../../modules/shared/kitty
     ../../modules/shared/packages
     ../../modules/shared/shell
     ../../modules/shared/theme
+    ../../modules/shared/wrapGPU.nix
     ../../modules/shared/zen-browser
     ../../modules/linux
   ];

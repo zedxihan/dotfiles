@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, wrapGPU, ... }:
 
 {
   programs.kitty = {
     enable = true;
-    package = if pkgs.stdenv.isDarwin then pkgs.kitty else null;
+    package = wrapGPU { pkg = if pkgs.stdenv.isDarwin then pkgs.kitty else null; };
 
     font = {
       name = "JetBrains Mono Nerd Font";

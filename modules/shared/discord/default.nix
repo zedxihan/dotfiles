@@ -19,9 +19,12 @@ let
     autoUpdate = true;
   };
 
-  equibop-wrapped = wrapGPU pkgs.equibop {
-    SPEECHD_ADDRESS = "none";
-    NIXOS_SPEECH = "False";
+  equibop-wrapped = wrapGPU {
+    pkg = pkgs.equibop;
+    env = {
+      SPEECHD_ADDRESS = "none";
+      NIXOS_SPEECH = "False";
+    };
   };
 in
 {
@@ -37,8 +40,12 @@ in
       BlurNSFW.enabled = true;
       ClearURLs.enabled = true;
       FakeNitro.enabled = true;
+      MessageBurst.enabled = true;
       MessageLinkEmbeds.enabled = true;
       MessageLogger.enabled = true;
+      MessageLoggerEnhanced.enabled = true;
+      MusicControls.enabled = true;
+      NoTrack.enabled = true;
       PermissionsViewer.enabled = true;
       PlatformIndicators.enabled = true;
       PreviewMessage.enabled = true;
@@ -47,14 +54,10 @@ in
       SilentTyping.enabled = true;
       ViewIcons.enabled = true;
       YoutubeAdblock.enabled = true;
-      MessageBurst.enabled = true;
-      MessageLoggerEnhanced.enabled = true;
-      MusicControls.enabled = true;
-      NoTrack.enabled = true;
-      # Auto-added plugins
-      Settings.enabled = true;
-      SupportHelper.enabled = true;
-      WebContextMenus.enabled = true;
+      #  Auto-added plugins
+      CrashHandler.enabled = true;
+      NewPluginsManager.enabled = false;
+      WebKeybinds.enabled = true;
     };
   };
 
