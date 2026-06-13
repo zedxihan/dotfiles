@@ -2,7 +2,7 @@
 
 let
   gl = inputs.nixgl.packages.${pkgs.stdenv.hostPlatform.system}.nixGLDefault or null;
-  isLinux = pkgs.stdenv.isLinux;
+  inherit (pkgs.stdenv) isLinux;
 
   wrap =
     {

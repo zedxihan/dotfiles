@@ -1,5 +1,6 @@
 {
   linuxUsername,
+  inputs,
   ...
 }:
 
@@ -10,6 +11,7 @@
 
   # --- Modules ---
   imports = [
+    inputs.nix-flatpak.homeManagerModules.nix-flatpak
     ../../modules/shared/backup.nix
     ../../modules/shared/dev
     ../../modules/shared/discord
@@ -22,5 +24,6 @@
     ../../modules/linux
   ];
 
+  nixpkgs.config.allowUnfree = true;
   programs.home-manager.enable = true;
 }

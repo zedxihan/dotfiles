@@ -26,8 +26,13 @@
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
 
   outputs =
@@ -56,7 +61,7 @@
       darwinConfigurations."mac-setup" = nix-darwin.lib.darwinSystem {
         specialArgs = { inherit macUsername; };
         modules = [
-          ./hosts/mac/darwin.nix
+          ./modules/darwin
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

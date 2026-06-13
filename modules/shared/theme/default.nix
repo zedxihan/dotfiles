@@ -6,6 +6,14 @@
 }:
 
 let
+  inherit (lib)
+    mapAttrs
+    mapAttrs'
+    nameValuePair
+    optional
+    ;
+  inherit (pkgs.stdenv) isDarwin;
+
   templates = {
     kitty = {
       src = ./templates/kitty-colors.conf;
@@ -29,18 +37,18 @@ let
     }
   '';
 
-  matugenTemplates = lib.mapAttrs (name: cfg: {
+  matugenTemplates = mapAttrs (name: cfg: {
     input_path = "${config.xdg.configHome}/matugen/templates/${baseNameOf cfg.src}";
     output_path = cfg.out;
   }) templates;
 in
 {
   # Shared config
-  home.packages = [ matugen-reload ] ++ lib.optional pkgs.stdenv.isDarwin pkgs.matugen;
+  home.packages = [ matugen-reload ] ++ optional isDarwin pkgs.matugen;
 
   xdg.configFile = (
-    lib.mapAttrs' (
-      name: cfg: lib.nameValuePair "matugen/templates/${baseNameOf cfg.src}" { source = cfg.src; }
+    mapAttrs' (
+      name: cfg: nameValuePair "matugen/templates/${baseNameOf cfg.src}" { source = cfg.src; }
     ) templates
   );
 
@@ -56,7 +64,7 @@ in
   '';
 
   # macOS only
-  launchd.agents.matugen-wallpaper-watcher = lib.mkIf pkgs.stdenv.isDarwin {
+  launchd.agents.matugen-wallpaper-watcher = lib.mkIf isDarwin {
     enable = true;
     config = {
       ProgramArguments = [ "${matugen-reload}/bin/matugen-reload" ];

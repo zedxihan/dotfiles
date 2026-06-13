@@ -7,7 +7,7 @@
 }:
 
 let
-  isLinux = pkgs.stdenv.isLinux;
+  inherit (pkgs.stdenv) isLinux;
 
   baseSettings = {
     discordBranch = "stable";

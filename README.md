@@ -9,9 +9,11 @@
 
 ### 🐧 For Linux (Arch Linux)
 1.  **Arch Linux** must be installed.
-2.  **[end-4/dots-hyprland (ii)](https://github.com/end-4/dots-hyprland)** **MUST** be installed and fully functional.
-    - This flake manages files in `~/.config/hypr/custom/`. If you have manual changes there, they will be moved to `.bak`.
-3.  **Nix** must be installed (see Step 1).
+2.  **Flatpak** must be installed (`sudo pacman -S flatpak`).
+3.  **[end-4/dots-hyprland (ii)](https://github.com/end-4/dots-hyprland)** **MUST** be installed and fully functional.
+    - This configuration is built specifically on top of the **ii** framework
+    - **Note**: Your `~/.config/hypr/custom/`files will be moved to `.bak`.
+4.  **Nix** must be installed (see Step 1).
 
 ### 🍎 For macOS
 1.  **[Homebrew](https://brew.sh)** must be installed.
@@ -90,7 +92,7 @@ darwin-rebuild switch --flake .#mac-setup
 ## 💡 Usage & Maintenance
 
 ### 🛠️ Maintenance
-You can manage your configuration from anywhere using the `dots` command:
+Once installed, you can manage your configuration from anywhere using the `dots` command:
 
 ```bash
 dots update  # Syncs your latest Nix configuration
@@ -99,5 +101,5 @@ dots         # Lists all available maintenance commands
 ```
 
 ### ⌨️ Keybinds & Shortcuts
-- **Linux (Hyprland)**: Custom keybinds are managed in `modules/linux/default.nix`.
+- **Linux (Hyprland)**: Custom keybinds are managed in `modules/linux/hyprland.nix`.
 - **Global Editing**: Use the `CTRL + SUPER + ALT + /` shortcut to open your configuration directly in Zed.

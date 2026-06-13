@@ -19,8 +19,10 @@
     ../../modules/shared/theme
     ../../modules/shared/wrapGPU.nix
     ../../modules/shared/zen-browser
-    ../../modules/darwin
   ];
+
+  # macOS-only packages
+  home.packages = [ ];
 
   programs.home-manager.enable = true;
 }
