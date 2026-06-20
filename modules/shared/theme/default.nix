@@ -6,22 +6,17 @@
 }:
 
 let
-  inherit (lib)
-    mapAttrs
-    mapAttrs'
-    nameValuePair
-    optional
-    ;
-  inherit (pkgs.stdenv) isDarwin;
+  inherit (lib) getExe optional;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
-  templates = {
+  templates = pkgs.writers.writeJSON "matugen-templates" {
     kitty = {
-      src = ./templates/kitty-colors.conf;
-      out = "${config.xdg.configHome}/kitty/matugen-theme.conf";
+      input_path = ./templates/kitty-colors.conf;
+      output_path = "${config.xdg.configHome}/kitty/matugen-theme.conf";
     };
     equibop = {
-      src = ./templates/midnight-discord.css;
-      out = "${config.xdg.configHome}/equibop/settings/quickCss.css";
+      input_path = ./templates/midnight-discord.css;
+      output_path = "${config.xdg.configHome}/equibop/settings/quickCss.css";
     };
   };
 
@@ -36,32 +31,23 @@ let
       ^${pkgs.matugen}/bin/matugen image $img -m dark -t tonal-spot -q
     }
   '';
-
-  matugenTemplates = mapAttrs (name: cfg: {
-    input_path = "${config.xdg.configHome}/matugen/templates/${baseNameOf cfg.src}";
-    output_path = cfg.out;
-  }) templates;
 in
 {
   # Shared config
   home.packages = [ matugen-reload ] ++ optional isDarwin pkgs.matugen;
 
-  xdg.configFile = (
-    mapAttrs' (
-      name: cfg: nameValuePair "matugen/templates/${baseNameOf cfg.src}" { source = cfg.src; }
-    ) templates
-  );
-
-  home.activation.setupMatugenTheme = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-    ${pkgs.nushell}/bin/nu -c '
-      let conf = "${config.xdg.configHome}/matugen/config.toml"
-      if ($conf | path exists) {
-        let new = ${builtins.toJSON matugenTemplates}
-        open $conf | upsert templates {|i| ($i.templates? | default {}) | merge $new } | save -f $conf
-      }
-      ^${matugen-reload}/bin/matugen-reload
-    '
-  '';
+  home.activation.setupMatugenTheme =
+    let
+      script = pkgs.writers.writeNu "activation" /* nu */ ''
+        let conf = "${config.xdg.configHome}/matugen/config.toml"
+        if ($conf | path exists) {
+          let new = open "${templates}" | from json
+          open $conf | upsert templates {|i| ($i.templates? | default {}) | merge $new } | save -f $conf
+        }
+        ${getExe matugen-reload}
+      '';
+    in
+    lib.hm.dag.entryAfter [ "linkGeneration" ] "${script}";
 
   # macOS only
   launchd.agents.matugen-wallpaper-watcher = lib.mkIf isDarwin {

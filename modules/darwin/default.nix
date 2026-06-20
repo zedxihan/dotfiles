@@ -5,6 +5,10 @@
     ./system.nix
   ];
 
+  environment.systemPackages = with pkgs; [
+    # macOS-only packages here
+  ];
+
   # --- Homebrew ---
   homebrew = {
     enable = true;
@@ -14,10 +18,6 @@
       "spotify"
     ];
   };
-
-  # --- System Packages ---
-  environment.systemPackages = with pkgs; [
-  ];
 
   # --- Shells ---
   programs.zsh.enable = true;

@@ -1,11 +1,11 @@
 {
   pkgs,
-  wrapGPU,
+  wrapNixGL,
   ...
 }:
 
 let
-  zed-pkg = wrapGPU { pkg = pkgs.zed-editor; };
+  zed-pkg = wrapNixGL pkgs.zed-editor;
 in
 {
   programs.zed-editor = {

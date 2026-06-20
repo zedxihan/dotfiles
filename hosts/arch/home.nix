@@ -19,7 +19,7 @@
     ../../modules/shared/packages
     ../../modules/shared/shell
     ../../modules/shared/theme
-    ../../modules/shared/wrapGPU.nix
+    ../../modules/shared/wrapNixGL.nix
     ../../modules/shared/zen-browser
     ../../modules/linux
   ];

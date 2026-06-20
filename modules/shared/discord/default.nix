@@ -2,12 +2,12 @@
   pkgs,
   lib,
   config,
-  wrapGPU,
+  wrapNixGLEnv,
   ...
 }:
 
 let
-  inherit (pkgs.stdenv) isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
 
   baseSettings = {
     discordBranch = "stable";
@@ -19,12 +19,9 @@ let
     autoUpdate = true;
   };
 
-  equibop-wrapped = wrapGPU {
-    pkg = pkgs.equibop;
-    env = {
-      SPEECHD_ADDRESS = "none";
-      NIXOS_SPEECH = "False";
-    };
+  equibop-wrapped = wrapNixGLEnv pkgs.equibop {
+    SPEECHD_ADDRESS = "none";
+    NIXOS_SPEECH = "False";
   };
 in
 {

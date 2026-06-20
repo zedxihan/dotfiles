@@ -2,7 +2,7 @@
   pkgs,
   lib,
   inputs,
-  wrapGPU,
+  wrapNixGL,
   ...
 }:
 let
@@ -24,7 +24,7 @@ in
 
   programs.zen-browser = {
     enable = true;
-    package = wrapGPU { pkg = inputs.zen-browser.packages.${pkgs.system}.default; };
+    package = wrapNixGL inputs.zen-browser.packages.${pkgs.system}.default;
 
     profiles.default = {
       id = 0;

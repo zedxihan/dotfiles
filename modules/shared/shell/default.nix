@@ -57,12 +57,19 @@
 
   programs.fzf = {
     enable = true;
+    # enableNushellIntegration = true;
     enableFishIntegration = true;
   };
 
+  home.sessionVariables = {
+    CARAPACE_BRIDGES = "carapace,zsh,fish,bash";
+    CARAPACE_MATCH = "1";
+  };
   programs.carapace = {
     enable = true;
     enableNushellIntegration = true;
     enableFishIntegration = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
   };
 }

@@ -1,9 +1,12 @@
-{ pkgs, wrapGPU, ... }:
+{ pkgs, wrapNixGL, ... }:
 
+let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+in
 {
   programs.kitty = {
     enable = true;
-    package = wrapGPU { pkg = if pkgs.stdenv.isDarwin then pkgs.kitty else null; };
+    package = wrapNixGL (if isDarwin then pkgs.kitty else null);
 
     font = {
       name = "JetBrains Mono Nerd Font";
