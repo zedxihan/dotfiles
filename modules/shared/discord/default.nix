@@ -19,10 +19,10 @@ let
     autoUpdate = true;
   };
 
-  equibop-wrapped = wrapNixGLEnv pkgs.equibop {
+  equibop-wrapped = wrapNixGLEnv {
     SPEECHD_ADDRESS = "none";
     NIXOS_SPEECH = "False";
-  };
+  } pkgs.equibop;
 in
 {
   home.packages = lib.mkIf isLinux [

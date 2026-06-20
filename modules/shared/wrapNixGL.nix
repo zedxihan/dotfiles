@@ -11,7 +11,7 @@ let
   nixGL = getExe' inputs.nixgl.packages.${system}.nixGLDefault "nixGL";
 
   wrapNixGLEnv =
-    pkg: env:
+    env: pkg:
     if pkg == null || !isLinux then
       pkg
     else
@@ -21,7 +21,7 @@ let
         argv0type = cmd: "${nixGL} ${cmd}";
       };
 
-  wrapNixGL = pkg: wrapNixGLEnv pkg { };
+  wrapNixGL = wrapNixGLEnv { };
 in
 {
   _module.args = {

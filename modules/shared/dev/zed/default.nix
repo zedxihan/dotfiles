@@ -4,13 +4,10 @@
   ...
 }:
 
-let
-  zed-pkg = wrapNixGL pkgs.zed-editor;
-in
 {
   programs.zed-editor = {
     enable = true;
-    package = zed-pkg;
+    package = wrapNixGL pkgs.zed-editor;
     mutableUserSettings = true;
     userKeymaps = import ./keymaps.nix;
 
