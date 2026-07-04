@@ -22,12 +22,12 @@
 
   # --- Shell Aliases ---
   home.shellAliases = {
+    bun = "sfw bun";
     cat = "bat";
     find = "fd";
     ls = "eza --icons";
     ll = "eza -l --icons";
     la = "eza -la --icons";
-    clear = "printf '\\033[2J\\033[3J\\033[1;1H'";
     q = "qs -c ii";
     dots = "just -f ~/GitHub/dotfiles/justfile";
   };
@@ -64,6 +64,9 @@
   home.sessionVariables = {
     CARAPACE_BRIDGES = "carapace,zsh,fish,bash";
     CARAPACE_MATCH = "1";
+    ANDROID_HOME = "$HOME/.android-sdk";
+    ANDROID_SDK_ROOT = "$HOME/.android-sdk";
+
   };
   programs.carapace = {
     enable = true;

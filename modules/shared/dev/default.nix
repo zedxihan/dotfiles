@@ -9,6 +9,7 @@ let
 in
 {
   imports = [
+    ./bun
     ./git
     ./zed
   ];
@@ -23,7 +24,6 @@ in
   };
 
   home.packages = with pkgs; [
-    bun
     gcc
     gh
     gnumake

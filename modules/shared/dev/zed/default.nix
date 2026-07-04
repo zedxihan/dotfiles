@@ -42,12 +42,16 @@
         dock = "right";
       };
       agent_servers = {
-        gemini = {
+        opencode = {
           type = "registry";
+          default_config_options = {
+            effort = "high";
+            model = "opencode/deepseek-v4-flash-free";
+          };
         };
       };
       context_servers = {
-        mcp_server_context7 = {
+        mcp-server-context7 = {
           enabled = true;
           remote = false;
           settings = {
