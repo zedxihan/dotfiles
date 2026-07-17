@@ -1,26 +1,26 @@
 {
-  linuxUsername,
+  username,
   inputs,
   ...
 }:
 
 {
   home.stateVersion = "25.05";
-  home.username = linuxUsername;
-  home.homeDirectory = "/home/${linuxUsername}";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   # --- Modules ---
   imports = [
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
-    ../../modules/shared/backup.nix
-    ../../modules/shared/dev
-    ../../modules/shared/discord
-    ../../modules/shared/kitty
-    ../../modules/shared/packages
-    ../../modules/shared/shell
-    ../../modules/shared/theme
-    ../../modules/shared/wrapNixGL.nix
-    ../../modules/shared/zen-browser
+    ../../modules/backup.nix
+    ../../modules/dev
+    ../../modules/discord
+    ../../modules/kitty
+    ../../modules/packages
+    ../../modules/shell
+    ../../modules/theme
+    ../../modules/wrapNixGL.nix
+    ../../modules/zen-browser
     ../../modules/linux
   ];
 

@@ -1,16 +1,11 @@
 {
-  description = "Portable Nix Configuration for Linux and macOS";
+  description = "Nix Configuration for Arch Linux";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -40,36 +35,18 @@
       self,
       nixpkgs,
       home-manager,
-      nix-darwin,
       ...
     }@inputs:
     let
-      linuxUsername = "zedxihan";
-      macUsername = "zedxihan";
+      username = builtins.getEnv "USER";
     in
     {
-      # --- Arch ---
       homeConfigurations."arch-setup" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
         modules = [
           ./hosts/arch/home.nix
         ];
-        extraSpecialArgs = { inherit linuxUsername inputs; };
-      };
-
-      # --- macOS ---
-      darwinConfigurations."mac-setup" = nix-darwin.lib.darwinSystem {
-        specialArgs = { inherit macUsername; };
-        modules = [
-          ./modules/darwin
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.${macUsername} = import ./hosts/mac/home.nix;
-            home-manager.extraSpecialArgs = { inherit macUsername inputs; };
-          }
-        ];
+        extraSpecialArgs = { inherit username inputs; };
       };
     };
 }

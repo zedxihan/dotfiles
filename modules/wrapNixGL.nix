@@ -7,13 +7,12 @@
 
 let
   inherit (lib) getExe';
-  inherit (pkgs.stdenv.hostPlatform) system isLinux;
+  inherit (pkgs.stdenv.hostPlatform) system;
   nixGL = getExe' inputs.nixgl.packages.${system}.nixGLDefault "nixGL";
 
   wrapNixGLEnv =
     env: pkg:
-    if pkg == null || !isLinux then
-      pkg
+    if pkg == null then pkg
     else
       inputs.nix-wrapper-modules.lib.wrapPackage {
         inherit pkgs env;

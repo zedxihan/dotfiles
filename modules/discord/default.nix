@@ -7,8 +7,6 @@
 }:
 
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
-
   baseSettings = {
     discordBranch = "stable";
     minimizeToTray = false;
@@ -25,7 +23,7 @@ let
   } pkgs.equibop;
 in
 {
-  home.packages = lib.mkIf isLinux [
+  home.packages = [
     equibop-wrapped
   ];
 

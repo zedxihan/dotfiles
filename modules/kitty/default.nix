@@ -1,12 +1,9 @@
-{ pkgs, wrapNixGL, ... }:
+{ pkgs, ... }:
 
-let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in
 {
   programs.kitty = {
     enable = true;
-    package = wrapNixGL (if isDarwin then pkgs.kitty else null);
+    package = null; # Installed by ii
 
     font = {
       name = "JetBrains Mono Nerd Font";
@@ -19,8 +16,6 @@ in
       window_margin_width = "21.75";
       confirm_os_window_close = "0";
       shell = "${pkgs.nushell}/bin/nu";
-
-      macos_option_as_alt = "both";
     };
 
     keybindings = {

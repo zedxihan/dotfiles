@@ -6,8 +6,7 @@
 }:
 
 let
-  inherit (lib) getExe optional;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (lib) getExe;
 
   templates = pkgs.writers.writeJSON "matugen-templates" {
     kitty = {
@@ -22,19 +21,14 @@ let
 
   # Matugen reload
   matugen-reload = pkgs.writers.writeNuBin "matugen-reload" ''
-    let img = if $nu.os-info.name == "macos" {
-      try { osascript -e 'tell app "Finder" to get POSIX path of (desktop picture as alias)' | str trim } catch { "" }
-    } else {
-      try { swww query | lines | first | split row "image: " | last | str trim } catch { "" }
-    }
+    let img = try { swww query | lines | first | split row "image: " | last | str trim } catch { "" }
     if ($img != "" and ($img | path exists)) {
       ^${pkgs.matugen}/bin/matugen image $img -m dark -t tonal-spot -q
     }
   '';
 in
 {
-  # Shared config
-  home.packages = [ matugen-reload ] ++ optional isDarwin pkgs.matugen;
+  home.packages = [ matugen-reload pkgs.matugen ];
 
   home.activation.setupMatugenTheme =
     let
@@ -48,14 +42,4 @@ in
       '';
     in
     lib.hm.dag.entryAfter [ "linkGeneration" ] "${script}";
-
-  # macOS only
-  launchd.agents.matugen-wallpaper-watcher = lib.mkIf isDarwin {
-    enable = true;
-    config = {
-      ProgramArguments = [ "${matugen-reload}/bin/matugen-reload" ];
-      WatchPaths = [ "${config.home.homeDirectory}/Library/Application Support/Dock/desktoppicture.db" ];
-      RunAtLoad = true;
-    };
-  };
 }
