@@ -50,6 +50,14 @@ cd dotfiles
 
 ## 🚀 Step 3: Install
 
+If `home-manager` is not on your PATH, enter a nix-shell first:
+
+```bash
+nix-shell -p home-manager
+```
+
+Then run the install:
+
 ```bash
 home-manager switch --flake .#arch-setup --impure
 ```
