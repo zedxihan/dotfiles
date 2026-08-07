@@ -38,6 +38,26 @@
         "type": "github"
       }
     },
+    "memify": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786094814,
+        "narHash": "sha256-9vezBKdorYWRCxclZCsFcg1F+FrjAoyx9tckm1nA3iE=",
+        "owner": "zedxihan",
+        "repo": "memify",
+        "rev": "cf5c1b8db547340d817fc4db308184b546359282",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zedxihan",
+        "repo": "memify",
+        "type": "github"
+      }
+    },
     "nix-flatpak": {
       "locked": {
         "lastModified": 1767983141,
@@ -114,6 +134,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "memify": "memify",
         "nix-flatpak": "nix-flatpak",
         "nix-wrapper-modules": "nix-wrapper-modules",
         "nixgl": "nixgl",

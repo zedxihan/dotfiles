@@ -28,6 +28,11 @@
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+
+    memify = {
+      url = "github:zedxihan/memify";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

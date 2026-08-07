@@ -17,6 +17,7 @@
     ../../modules/discord
     ../../modules/kitty
     ../../modules/packages
+    ../../modules/scripts
     ../../modules/shell
     ../../modules/theme
     ../../modules/wrapNixGL.nix

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -17,5 +17,6 @@
     xdg-utils
     xh
     yt-dlp
+    inputs.memify.packages."${pkgs.stdenv.hostPlatform.system}".memify
   ];
 }
