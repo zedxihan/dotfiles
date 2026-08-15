@@ -16,7 +16,10 @@
         location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
       }
     ];
-    packages = [ "com.spotify.Client" ];
+    packages = [
+      "com.spotify.Client"
+      "org.qbittorrent.qBittorrent"
+    ];
     update.onActivation = true;
   };
 

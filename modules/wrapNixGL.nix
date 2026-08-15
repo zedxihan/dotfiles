@@ -12,7 +12,8 @@ let
 
   wrapNixGLEnv =
     env: pkg:
-    if pkg == null then pkg
+    if pkg == null then
+      pkg
     else
       inputs.nix-wrapper-modules.lib.wrapPackage {
         inherit pkgs env;

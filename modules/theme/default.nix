@@ -28,7 +28,10 @@ let
   '';
 in
 {
-  home.packages = [ matugen-reload pkgs.matugen ];
+  home.packages = [
+    matugen-reload
+    pkgs.matugen
+  ];
 
   home.activation.setupMatugenTheme =
     let
