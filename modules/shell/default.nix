@@ -64,10 +64,8 @@
   home.sessionVariables = {
     CARAPACE_BRIDGES = "zsh,fish,bash";
     CARAPACE_MATCH = "1";
-    ANDROID_HOME = "$HOME/.android-sdk";
-    ANDROID_SDK_ROOT = "$HOME/.android-sdk";
-
   };
+
   programs.carapace = {
     enable = true;
     enableNushellIntegration = true;

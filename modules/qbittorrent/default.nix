@@ -23,7 +23,7 @@
       Session\AlternativeGlobalUPSpeedLimit=0
       Session\BTProtocol=TCP
       Session\DHTEnabled=false
-      Session\DefaultSavePath=/run/media/zedxihan/Shared Drive
+      Session\DefaultSavePath=/mnt/shared
       Session\LSDEnabled=false
       Session\MaxUploadsPerTorrent=10
       Session\PeXEnabled=false

@@ -1,6 +1,7 @@
 {
   username,
   inputs,
+  lib,
   ...
 }:
 
@@ -24,7 +25,8 @@
     ../../modules/wrapNixGL.nix
     ../../modules/zen-browser
     ../../modules/linux
-  ];
+  ]
+  ++ lib.optional (builtins.pathExists ../local.nix) ../local.nix;
 
   nixpkgs.config.allowUnfree = true;
   programs.home-manager.enable = true;

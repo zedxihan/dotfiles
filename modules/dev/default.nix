@@ -11,6 +11,7 @@ in
   imports = [
     ./bun
     ./git
+    ./studio
     ./zed
   ];
 

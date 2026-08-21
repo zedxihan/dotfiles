@@ -24,7 +24,7 @@ in
 
   programs.zen-browser = {
     enable = true;
-    package = wrapNixGL inputs.zen-browser.packages.${pkgs.system}.default;
+    package = wrapNixGL inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     profiles.default = {
       id = 0;
@@ -43,6 +43,9 @@ in
           github = createEngine "GitHub" "@gh" "https://github.com/search" {
             type = "repositories";
             q = "{searchTerms}";
+          };
+          archwiki = createEngine "Arch Wiki" "@aw" "https://wiki.archlinux.org/index.php" {
+            search = "{searchTerms}";
           };
           nixwiki = createEngine "NixOS Wiki" "@nw" "https://wiki.nixos.org/w/index.php" {
             search = "{searchTerms}";
