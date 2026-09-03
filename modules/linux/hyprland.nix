@@ -1,5 +1,4 @@
 { ... }:
-
 {
   # --- Hyprland Custom Configs ---
   # Keybinds
@@ -27,7 +26,16 @@
   xdg.configFile."hypr/custom/execs.lua".text = ''
     hl.on("hyprland.start", function()
         hl.exec_cmd("kdeconnect-indicator")
-        hl.exec_cmd("openrgb --startminimized --profile DEFAULT")
+        hl.exec_cmd("openrgb --startminimized --profile AURORA")
     end)
+  '';
+
+  # Rules
+  xdg.configFile."hypr/custom/rules.lua".text = ''
+    hl.window_rule({
+      match = { class = "^jetbrains-studio$", float = 1 },
+      no_initial_focus = false,
+      stay_focused = true
+    })
   '';
 }
