@@ -1,7 +1,10 @@
-{ pkgs, wrapNixGL, ... }:
+{ pkgs, ... }:
 {
+  services.flatpak.packages = [
+    "com.google.AndroidStudio"
+  ];
+
   home.packages = [
-    (wrapNixGL pkgs.androidStudioPackages.stable)
     pkgs.android-tools
   ];
 

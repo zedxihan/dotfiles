@@ -11,6 +11,7 @@
     hl.bind("F3", hl.dsp.exec_cmd("equibop"))
     hl.bind("F4", hl.dsp.exec_cmd("com.spotify.Client"))
     hl.bind("F5", hl.dsp.exec_cmd("zeditor"))
+    hl.bind("F6", hl.dsp.exec_cmd("com.google.AndroidStudio"))
   '';
 
   # General
