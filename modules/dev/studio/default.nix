@@ -1,8 +1,23 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
-  services.flatpak.packages = [
-    "com.google.AndroidStudio"
-  ];
+  services.flatpak = {
+    packages = [
+      "com.google.AndroidStudio"
+    ];
+
+    overrides."com.google.AndroidStudio" = {
+      Context = {
+        devices = [ "kvm" ];
+        sockets = [ "x11" ];
+      };
+
+      Environment = {
+        ANDROID_HOME = "${config.home.homeDirectory}/Android/Sdk";
+        ANDROID_SDK_ROOT = "${config.home.homeDirectory}/Android/Sdk";
+        QT_QPA_PLATFORM = "xcb";
+      };
+    };
+  };
 
   home.packages = [
     pkgs.android-tools
