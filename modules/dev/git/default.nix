@@ -1,18 +1,9 @@
 { pkgs, lib, ... }:
 
 let
-  git-copy =
-    pkgs.runCommand "git-copy"
-      {
-        nativeBuildInputs = [ pkgs.go ];
-      }
-      ''
-        mkdir -p $out/bin
-        export HOME=$TMPDIR
-        export GOCACHE=$TMPDIR/go-cache
-        export GOPATH=$TMPDIR/go-path
-        go build -ldflags="-s -w" -o $out/bin/git-copy ${./git-copy.go}
-      '';
+  git-copy = pkgs.writers.writeNuBin "git-copy" ''
+    ${builtins.readFile ./git-copy.nu}
+  '';
 in
 {
   home.packages = [
