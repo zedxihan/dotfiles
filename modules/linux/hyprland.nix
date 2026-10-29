@@ -18,7 +18,7 @@
   xdg.configFile."hypr/custom/general.lua".text = ''
     hl.config({
         input = {
-            sensitivity = 5
+            sensitivity = 1
         }
     })
   '';
