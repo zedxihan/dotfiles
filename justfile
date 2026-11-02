@@ -5,6 +5,10 @@ default:
 update:
     home-manager switch --flake .#arch-setup --impure
 
+# Set up GPU drivers for non-NixOS systems
+gpu-setup:
+    sudo $(readlink -f ~/.nix-profile/bin/non-nixos-gpu-setup)
+
 # Garbage collection and hard link deduplication
 clean:
     echo "🧹 Wiping old generation history..."

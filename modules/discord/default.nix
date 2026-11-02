@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  wrapNixGLEnv,
   ...
 }:
 
@@ -16,15 +15,10 @@ let
     splashTheming = true;
     autoUpdate = true;
   };
-
-  equibop-wrapped = wrapNixGLEnv {
-    SPEECHD_ADDRESS = "none";
-    NIXOS_SPEECH = "False";
-  } pkgs.equibop;
 in
 {
   home.packages = [
-    equibop-wrapped
+    (pkgs.equibop.override { withTTS = false; })
   ];
 
   # Plugin settings

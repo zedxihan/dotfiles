@@ -10,6 +10,8 @@
   home.username = username;
   home.homeDirectory = "/home/${username}";
 
+  targets.genericLinux.enable = true;
+
   # --- Modules ---
   imports = [
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
@@ -22,7 +24,6 @@
     ../../modules/scripts
     ../../modules/shell
     ../../modules/theme
-    ../../modules/wrapNixGL.nix
     ../../modules/zen-browser
     ../../modules/linux
   ]

@@ -62,6 +62,12 @@ Then run the install:
 home-manager switch --flake .#arch-setup --impure
 ```
 
+Then set up the GPU drivers (one-time, non-NixOS only):
+
+```bash
+sudo ~/.nix-profile/bin/non-nixos-gpu-setup
+```
+
 ---
 
 ## 💡 Usage
@@ -69,9 +75,10 @@ home-manager switch --flake .#arch-setup --impure
 Once installed, use the `dots` command from anywhere:
 
 ```bash
-dots update  # Rebuild configuration
-dots clean   # Remove old generations, garbage collect
-dots         # List all commands
+dots update     # Rebuild configuration
+dots gpu-setup  # Set up GPU drivers (one-time)
+dots clean      # Remove old generations, garbage collect
+dots            # List all commands
 ```
 
 Custom Hyprland keybinds: `modules/linux/hyprland.nix` — opened in zed via `CTRL + SUPER + ALT + /`
