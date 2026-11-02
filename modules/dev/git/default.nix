@@ -13,13 +13,16 @@ in
   # --- SSH Key Generation ---
   home.activation.createSshKey = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     ${pkgs.writers.writeNu "create-ssh-key" ''
-      let key = ($env.HOME | path join ".ssh/id_ed25519")
-
-      if not ($key | path exists) {
-        print "Nix: Auto-generating SSH key..."
-        mkdir ($env.HOME | path join ".ssh")
-        ^${pkgs.openssh}/bin/ssh-keygen -t ed25519 -N "" -f $key -C "dev@gaffarmahmud.com"
+      def mkKey [path, comment] {
+        if not ($path | path exists) {
+          print $"Nix: Auto-generating ($path)..."
+          ^${pkgs.openssh}/bin/ssh-keygen -t ed25519 -N "" -f $path -C $comment
+        }
       }
+      let ssh = ($env.HOME | path join ".ssh")
+      if not ($ssh | path exists) { mkdir $ssh }
+      mkKey ($ssh | path join "id_ed25519") "dev@gaffarmahmud.com"
+      mkKey ($ssh | path join "aur") "aur"
     ''}
   '';
 
@@ -35,6 +38,11 @@ in
       "github.com" = {
         User = "git";
         IdentityFile = "~/.ssh/id_ed25519";
+      };
+      "aur.archlinux.org" = {
+        User = "aur";
+        IdentityFile = "~/.ssh/aur";
+        IdentitiesOnly = "yes";
       };
     };
   };
