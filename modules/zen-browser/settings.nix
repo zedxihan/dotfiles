@@ -27,7 +27,7 @@
           "privatebrowsing-button"
         ];
         zen-sidebar-foot-buttons = [
-          "downloads-button"
+          "zen-library-button"
           "zen-workspaces-button"
           "zen-create-new-button"
         ];

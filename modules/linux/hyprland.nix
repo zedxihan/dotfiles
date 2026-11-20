@@ -18,7 +18,8 @@
   xdg.configFile."hypr/custom/general.lua".text = ''
     hl.config({
         input = {
-            sensitivity = 1
+            sensitivity = 1,
+            scroll_factor = 1.5
         }
     })
   '';
@@ -27,7 +28,7 @@
   xdg.configFile."hypr/custom/execs.lua".text = ''
     hl.on("hyprland.start", function()
         hl.exec_cmd("kdeconnect-indicator")
-        hl.exec_cmd("openrgb --startminimized --profile AURORA")
+        hl.exec_cmd("openrgb --startminimized --profile PURPLE_BLUE")
     end)
   '';
 
